@@ -20,7 +20,7 @@ module Koans
 
       status = Process.run(
         "crystal",
-        ["spec", file, "--no-color"],
+        ["spec", file, "--no-color", "--fail-fast"],
         output: output,
         error: error
       )
