@@ -1,0 +1,13 @@
+name: koans
+version: 0.1.0
+
+authors:
+  - Jack Thorne <jack@kilmer.co>
+
+targets:
+  koans:
+    main: src/koans.cr
+
+crystal: '>= 1.17.1'
+
+license: MIT
