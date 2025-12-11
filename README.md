@@ -12,8 +12,8 @@ Crystal Koans is an interactive learning tool inspired by [Ruby Koans](http://ru
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-github-user/crystal-koans.git
-cd crystal-koans
+git clone https://github.com/jkthorne/koans.git
+cd koans
 
 # Start your journey
 crystal run src/path_to_enlightenment.cr
