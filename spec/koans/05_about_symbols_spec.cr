@@ -17,11 +17,11 @@ describe "About Symbols" do
     (:hello == :world).should eq(__)
   end
 
-  it "knows identical symbols are the same object" do
-    # Symbols with the same name are always the same object
+  it "knows identical symbols are equal" do
+    # Symbols with the same name are always equal
     a = :crystal
     b = :crystal
-    a.same?(b).should eq(__)
+    (a == b).should eq(__)
   end
 
   it "knows symbols can be converted to strings" do
@@ -53,10 +53,10 @@ describe "About Symbols" do
   it "knows symbols are memory efficient" do
     # Because symbols are interned, they use less memory than strings
     # for repeated values. This is why they're good as hash keys.
-    # Let's verify they're the same object
+    # Let's verify they're equal
     hash1 = {status: "ok"}
     hash2 = {status: "ok"}
     # The symbol keys are identical
-    hash1.keys.first.same?(hash2.keys.first).should eq(__)
+    (hash1.keys.first == hash2.keys.first).should eq(__)
   end
 end

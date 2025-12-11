@@ -44,6 +44,14 @@ def with_cleanup(should_fail : Bool)
   result
 end
 
+def multi_error(type : Int32)
+  case type
+  when 1 then raise ArgumentError.new("bad arg")
+  when 2 then raise IndexError.new("bad index")
+  else        "ok"
+  end
+end
+
 describe "About Exceptions" do
   it "knows exceptions can be raised with raise" do
     expect_raises(Exception) do
@@ -145,14 +153,6 @@ describe "About Exceptions" do
   end
 
   it "knows multiple exception types can be rescued" do
-    def multi_error(type : Int32)
-      case type
-      when 1 then raise ArgumentError.new("bad arg")
-      when 2 then raise IndexError.new("bad index")
-      else        "ok"
-      end
-    end
-
     result1 = begin
       multi_error(1)
     rescue ArgumentError

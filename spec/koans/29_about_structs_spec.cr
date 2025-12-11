@@ -52,6 +52,9 @@ struct ImmutableData
   end
 end
 
+record Person4, name : String, age : Int32
+record RGB, r : UInt8, g : UInt8, b : UInt8
+
 describe "About Structs" do
   it "knows structs are defined with 'struct'" do
     point = Point2D.new(3, 4)
@@ -66,7 +69,7 @@ describe "About Structs" do
 
   it "knows structs can have methods" do
     point = Point2D.new(3, 4)
-    point.distance_from_origin.should be_close(__, 0.01)
+    point.distance_from_origin.should be_close(__f__, 0.01)
   end
 
   it "knows structs can define operators" do
@@ -101,7 +104,7 @@ describe "About Structs" do
     temp = Temperature.new(100.0)
     temp.celsius.should eq(__)
     temp.fahrenheit.should eq(__)
-    temp.kelvin.should be_close(__, 0.01)
+    temp.kelvin.should be_close(__f__, 0.01)
   end
 
   it "knows structs are good for immutable data" do
@@ -111,16 +114,14 @@ describe "About Structs" do
   end
 
   it "knows record macro creates simple structs" do
-    record Person4, name : String, age : Int32
-
+    # Person4 was defined at top level with record macro
     person = Person4.new("Alice", 30)
     person.name.should eq(__)
     person.age.should eq(__)
   end
 
   it "knows record structs are immutable by default" do
-    record RGB, r : UInt8, g : UInt8, b : UInt8
-
+    # RGB was defined at top level with record macro
     color = RGB.new(255, 128, 0)
     # color.r = 0  # Would not compile - immutable
     color.r.should eq(__)

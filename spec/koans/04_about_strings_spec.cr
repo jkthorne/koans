@@ -17,7 +17,7 @@ describe "About Strings" do
   end
 
   it "knows strings can be concatenated with +" do
-    "hello" + " " + "world".should eq(__)
+    ("hello" + " " + "world").should eq(__)
   end
 
   it "knows strings can be interpolated" do
@@ -116,13 +116,13 @@ describe "About Strings" do
   end
 
   it "knows about repeating strings" do
-    "ab" * 3.should eq(__)
+    ("ab" * 3).should eq(__)
   end
 
   it "knows about converting to and from strings" do
     42.to_s.should eq(__)
     "42".to_i.should eq(__)
-    "3.14".to_f.should be_close(__, 0.001)
+    "3.14".to_f.should be_close(__f__, 0.001)
   end
 
   it "knows about chars in strings" do

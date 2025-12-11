@@ -154,8 +154,8 @@ describe "About Inheritance" do
 
     # Both respond to area, despite being different types
     areas = shapes.map(&.area)
-    areas[0].should be_close(__, 0.01)  # π * 2²
-    areas[1].should be_close(__, 0.01)  # 3²
+    areas[0].should be_close(__f__, 0.01)  # π * 2²
+    areas[1].should be_close(__f__, 0.01)  # 3²
   end
 
   it "knows about is_a? for type checking" do

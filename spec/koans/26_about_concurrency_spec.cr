@@ -6,6 +6,14 @@ require "../spec_helper"
 # by the runtime. Channels allow safe communication between fibers.
 # This is similar to Go's goroutines and channels.
 
+def async_compute(x : Int32) : Channel(Int32)
+  channel = Channel(Int32).new
+  spawn do
+    channel.send(x * 2)
+  end
+  channel
+end
+
 describe "About Concurrency" do
   it "knows spawn creates a new fiber" do
     result = [] of String
@@ -100,14 +108,6 @@ describe "About Concurrency" do
   end
 
   it "knows fibers can return values via channels" do
-    def async_compute(x : Int32) : Channel(Int32)
-      channel = Channel(Int32).new
-      spawn do
-        channel.send(x * 2)
-      end
-      channel
-    end
-
     ch = async_compute(21)
     ch.receive.should eq(__)
   end

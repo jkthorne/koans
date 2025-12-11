@@ -6,14 +6,14 @@ require "../spec_helper"
 # The type is specified when using the generic class or method.
 # Crystal's Array, Hash, and many stdlib classes are generic.
 
-class Box(T)
+class GenericBox(T)
   property value : T
 
   def initialize(@value : T)
   end
 
-  def transform(&block : T -> T) : Box(T)
-    Box(T).new(block.call(@value))
+  def transform(&block : T -> T) : GenericBox(T)
+    GenericBox(T).new(block.call(@value))
   end
 end
 
@@ -57,6 +57,21 @@ class Stack(T)
   end
 end
 
+def identity(value : T) : T forall T
+  value
+end
+
+class NumberBox(T)
+  getter value : T
+
+  def initialize(@value : T)
+  end
+
+  def double
+    @value * 2
+  end
+end
+
 describe "About Generics" do
   it "knows Array is generic" do
     int_array = Array(Int32).new
@@ -73,17 +88,17 @@ describe "About Generics" do
   end
 
   it "knows custom generic classes can be created" do
-    box = Box(String).new("hello")
+    box = GenericBox(String).new("hello")
     box.value.should eq(__)
   end
 
   it "knows type is inferred from constructor argument" do
-    box = Box.new(42)  # Type inferred as Box(Int32)
+    box = GenericBox.new(42)  # Type inferred as GenericBox(Int32)
     box.value.should eq(__)
   end
 
   it "knows generic methods preserve type" do
-    box = Box.new(10)
+    box = GenericBox.new(10)
     transformed = box.transform { |v| v * 2 }
     transformed.value.should eq(__)
   end
@@ -111,16 +126,12 @@ describe "About Generics" do
   end
 
   it "knows generic methods can be defined" do
-    def identity(value : T) : T forall T
-      value
-    end
-
     identity(42).should eq(__)
     identity("hello").should eq(__)
   end
 
   it "knows typeof shows the generic type" do
-    box = Box.new("test")
+    box = GenericBox.new("test")
     typeof(box).should eq(__)
   end
 
@@ -133,18 +144,7 @@ describe "About Generics" do
   end
 
   it "knows generic constraints can be applied" do
-    # This is a simplified example
-    class NumberBox(T)
-      getter value : T
-
-      def initialize(@value : T)
-      end
-
-      def double
-        @value * 2
-      end
-    end
-
+    # NumberBox class is defined at top level
     box = NumberBox.new(21)
     box.double.should eq(__)
   end

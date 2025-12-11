@@ -107,6 +107,17 @@ class ItemCounter
   include Countable
 end
 
+module MathHelpers
+  def self.double(x : Int32)
+    x * 2
+  end
+end
+
+module Config
+  MAX_SIZE = 100
+  DEFAULT_NAME = "Unknown"
+end
+
 describe "About Modules" do
   it "knows modules can be included in classes" do
     greeter = Greeter.new
@@ -155,21 +166,10 @@ describe "About Modules" do
   end
 
   it "knows modules can define self methods" do
-    module MathHelpers
-      def self.double(x : Int32)
-        x * 2
-      end
-    end
-
     MathHelpers.double(5).should eq(__)
   end
 
   it "knows modules can have constants" do
-    module Config
-      MAX_SIZE = 100
-      DEFAULT_NAME = "Unknown"
-    end
-
     Config::MAX_SIZE.should eq(__)
     Config::DEFAULT_NAME.should eq(__)
   end

@@ -6,6 +6,14 @@ require "../spec_helper"
 # can have a different type. They're useful for returning multiple
 # values from methods and for small, typed data structures.
 
+def min_max(arr : Array(Int32)) : {Int32, Int32}
+  {arr.min, arr.max}
+end
+
+def get_person : {String, Int32}
+  {"Alice", 30}
+end
+
 describe "About Tuples" do
   it "knows tuples are created with braces" do
     tuple = {1, "hello", true}
@@ -45,20 +53,12 @@ describe "About Tuples" do
   end
 
   it "knows tuples are useful for multiple return values" do
-    def min_max(arr : Array(Int32)) : {Int32, Int32}
-      {arr.min, arr.max}
-    end
-
     min, max = min_max([3, 1, 4, 1, 5])
     min.should eq(__)
     max.should eq(__)
   end
 
   it "knows tuples preserve type information" do
-    def get_person : {String, Int32}
-      {"Alice", 30}
-    end
-
     name, age = get_person
     typeof(name).should eq(__)
     typeof(age).should eq(__)

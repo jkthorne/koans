@@ -78,6 +78,13 @@ class Counter2
   end
 end
 
+class SelfInBody
+  # At class body level, self is the class
+  def self.who_am_i
+    self.name
+  end
+end
+
 describe "About Self" do
   it "knows self in instance method is the instance" do
     obj = SelfExample.new(42)
@@ -132,13 +139,6 @@ describe "About Self" do
   end
 
   it "knows self changes context in class body" do
-    class SelfInBody
-      # At class body level, self is the class
-      def self.who_am_i
-        self.name
-      end
-    end
-
     SelfInBody.who_am_i.should eq(__)
   end
 end

@@ -6,6 +6,19 @@ require "../spec_helper"
 # A union type means a variable can hold one of several types.
 # The compiler ensures you handle all possible types safely.
 
+def describe_value(value : Int32 | String | Bool) : String
+  case value
+  when Int32  then "number"
+  when String then "text"
+  when Bool   then "boolean"
+  else             "unknown"
+  end
+end
+
+def maybe_number(give_number : Bool) : Int32 | Nil
+  give_number ? 42 : nil
+end
+
 describe "About Union Types" do
   it "knows variables can have union types" do
     value : Int32 | String = "hello"
@@ -22,15 +35,6 @@ describe "About Union Types" do
   end
 
   it "knows case can match union types" do
-    def describe_value(value : Int32 | String | Bool) : String
-      case value
-      when Int32  then "number"
-      when String then "text"
-      when Bool   then "boolean"
-      else             "unknown"
-      end
-    end
-
     describe_value(42).should eq(__)
     describe_value("hi").should eq(__)
     describe_value(true).should eq(__)
@@ -92,10 +96,6 @@ describe "About Union Types" do
   end
 
   it "knows methods can return union types" do
-    def maybe_number(give_number : Bool) : Int32 | Nil
-      give_number ? 42 : nil
-    end
-
     maybe_number(true).should eq(__)
     maybe_number(false).should eq(__)
   end

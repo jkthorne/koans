@@ -39,6 +39,12 @@ class Array(T)
   end
 end
 
+struct Float64
+  def rounded_string(decimals = 2)
+    "%.#{decimals}f" % self
+  end
+end
+
 describe "About Open Classes" do
   it "knows classes can be reopened to add methods" do
     "hello".shout.should eq(__)
@@ -71,13 +77,7 @@ describe "About Open Classes" do
   end
 
   it "knows reopening can extend functionality" do
-    # Adding a method that uses existing methods
-    struct Float64
-      def rounded_string(decimals = 2)
-        "%.#{decimals}f" % self
-      end
-    end
-
+    # Float64 was reopened at top level with rounded_string method
     3.14159.rounded_string.should eq(__)
     3.14159.rounded_string(4).should eq(__)
   end

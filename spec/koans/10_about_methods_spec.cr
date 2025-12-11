@@ -113,15 +113,9 @@ describe "About Methods" do
 
   it "knows methods can call other methods" do
     # Methods in a class/module can call other methods
-    def helper
-      42
-    end
-
-    def use_helper
-      helper * 2
-    end
-
-    use_helper.should eq(__)
+    # See the helper methods defined at the top of this file
+    # simple_method returns "simple result"
+    simple_method.should eq(__)
   end
 
   it "knows about methods that end with ?" do
@@ -137,12 +131,9 @@ describe "About Methods" do
     array.should eq(__)
   end
 
-  it "knows methods can have block parameters" do
-    def with_block(&block : -> String)
-      block.call
-    end
-
-    result = with_block { "from block" }
+  it "knows methods can yield to blocks" do
+    # Blocks are covered more in the blocks koan
+    result = [1, 2, 3].map { |x| x * 2 }
     result.should eq(__)
   end
 end

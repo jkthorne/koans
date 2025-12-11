@@ -36,6 +36,11 @@ class ConstantHolder
   end
 end
 
+VALID_STATES = ["pending", "active", "done"]
+CONFIG = {timeout: 30, retries: 3}
+BASE = 10
+DOUBLED = BASE * 2
+
 describe "About Constants" do
   it "knows constants start with uppercase" do
     MAX_SIZE.should eq(__)
@@ -46,7 +51,7 @@ describe "About Constants" do
   end
 
   it "knows constants can be floats" do
-    PI_APPROX.should be_close(__, 0.001)
+    PI_APPROX.should be_close(__f__, 0.001)
   end
 
   it "knows constants in modules use :: accessor" do
@@ -73,25 +78,21 @@ describe "About Constants" do
   end
 
   it "knows constants can be arrays" do
-    VALID_STATES = ["pending", "active", "done"]
     VALID_STATES.size.should eq(__)
     VALID_STATES.first.should eq(__)
   end
 
   it "knows constants can be hashes" do
-    CONFIG = {timeout: 30, retries: 3}
     CONFIG[:timeout].should eq(__)
   end
 
   it "knows constants can reference other constants" do
-    BASE = 10
-    DOUBLED = BASE * 2
     DOUBLED.should eq(__)
   end
 
   it "knows Math module has useful constants" do
-    Math::PI.should be_close(__, 0.0001)
-    Math::E.should be_close(__, 0.0001)
+    Math::PI.should be_close(__f__, 0.0001)
+    Math::E.should be_close(__f__, 0.0001)
   end
 
   it "knows type names are constants" do

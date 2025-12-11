@@ -74,6 +74,28 @@ class Rectangle
   end
 end
 
+class Greeter
+  def self.greet(name : String)
+    "Hello, #{name}!"
+  end
+end
+
+class InstanceCounter
+  @@count = 0
+
+  def initialize
+    @@count += 1
+  end
+
+  def self.count
+    @@count
+  end
+
+  def self.reset
+    @@count = 0
+  end
+end
+
 describe "About Classes" do
   it "knows classes create objects with new" do
     dog = Dog.new("Fido", 3)
@@ -161,28 +183,11 @@ describe "About Classes" do
   end
 
   it "knows about class methods with self" do
-    class Greeter
-      def self.greet(name : String)
-        "Hello, #{name}!"
-      end
-    end
-
     Greeter.greet("World").should eq(__)
   end
 
   it "knows about class variables with @@" do
-    class InstanceCounter
-      @@count = 0
-
-      def initialize
-        @@count += 1
-      end
-
-      def self.count
-        @@count
-      end
-    end
-
+    InstanceCounter.reset
     InstanceCounter.count.should eq(__)
     InstanceCounter.new
     InstanceCounter.new

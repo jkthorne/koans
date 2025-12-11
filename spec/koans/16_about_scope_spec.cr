@@ -5,12 +5,15 @@ require "../spec_helper"
 # Scope determines where variables are visible and accessible.
 # Crystal has local, instance (@), class (@@), and constant scopes.
 # Understanding scope is crucial for writing maintainable code.
-
-$global_value = "I am global"
+# Note: Crystal does not support $global_variables, use @@class_variables instead.
 
 module ScopeExamples
   CONSTANT = "I am a constant"
   @@class_var = "I am a class variable"
+
+  def self.class_var
+    @@class_var
+  end
 
   class ScopeDemo
     @@shared = 0
@@ -86,8 +89,8 @@ describe "About Scope" do
     ScopeExamples::CONSTANT.should eq(__)
   end
 
-  it "knows global variables are accessible everywhere" do
-    $global_value.should eq(__)
+  it "knows module-level class variables can act like globals" do
+    ScopeExamples.class_var.should eq(__)
   end
 
   it "knows local variables don't leak out of methods" do

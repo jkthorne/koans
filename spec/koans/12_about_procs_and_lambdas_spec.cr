@@ -35,20 +35,16 @@ describe "About Procs and Lambdas" do
   end
 
   it "knows procs can be passed to methods" do
-    def apply_twice(value : Int32, &operation : Int32 -> Int32)
-      operation.call(operation.call(value))
-    end
-
-    result = apply_twice(3) { |x| x * 2 }
+    # Methods that take blocks are covered in the blocks koan
+    # Here we'll just show procs can be called multiple times
+    double = ->(x : Int32) { x * 2 }
+    result = double.call(double.call(3))
     result.should eq(__)  # (3 * 2) * 2
   end
 
-  it "knows about converting blocks to procs" do
-    def execute(&block : -> String)
-      block.call
-    end
-
-    result = execute { "executed!" }
+  it "knows procs can be called from variables" do
+    greet = -> { "executed!" }
+    result = greet.call
     result.should eq(__)
   end
 
@@ -80,11 +76,10 @@ describe "About Procs and Lambdas" do
   end
 
   it "knows procs can be used for callbacks" do
-    def with_callback(value : Int32, &callback : Int32 -> Int32) : Int32
-      callback.call(value * 2)
-    end
-
-    result = with_callback(5) { |x| x + 3 }
+    # Simulate callback by using a proc
+    callback = ->(x : Int32) { x + 3 }
+    value = 5
+    result = callback.call(value * 2)
     result.should eq(__)  # (5 * 2) + 3
   end
 

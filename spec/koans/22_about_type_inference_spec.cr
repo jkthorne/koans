@@ -6,6 +6,31 @@ require "../spec_helper"
 # of static typing without the verbosity. The compiler figures
 # out types from context, but you can add annotations when needed.
 
+def add_numbers(a : Int32, b : Int32)
+  a + b
+end
+
+def multiply(a : Int32, b : Int32) : Int32
+  a * b
+end
+
+class Person3
+  # Either annotate type or initialize in initialize
+  @name : String
+  @age = 0  # Type inferred from initial value
+
+  def initialize(@name : String)
+  end
+
+  def name
+    @name
+  end
+
+  def age
+    @age
+  end
+end
+
 describe "About Type Inference" do
   it "knows types are inferred from literals" do
     number = 42
@@ -54,19 +79,11 @@ describe "About Type Inference" do
   end
 
   it "knows method return types can be inferred" do
-    def add(a : Int32, b : Int32)
-      a + b
-    end
-
-    result = add(1, 2)
+    result = add_numbers(1, 2)
     typeof(result).should eq(__)
   end
 
   it "knows explicit return types document intent" do
-    def multiply(a : Int32, b : Int32) : Int32
-      a * b
-    end
-
     result = multiply(3, 4)
     result.should eq(__)
   end
@@ -104,23 +121,6 @@ describe "About Type Inference" do
   end
 
   it "knows instance variables need type annotation or initialization" do
-    class Person3
-      # Either annotate type or initialize in initialize
-      @name : String
-      @age = 0  # Type inferred from initial value
-
-      def initialize(@name : String)
-      end
-
-      def name
-        @name
-      end
-
-      def age
-        @age
-      end
-    end
-
     person = Person3.new("Alice")
     typeof(person.name).should eq(__)
     typeof(person.age).should eq(__)

@@ -51,6 +51,15 @@ enum Day
   end
 end
 
+def describe_color(c : Color) : String
+  case c
+  when Color::Red   then "stop"
+  when Color::Green then "go"
+  when Color::Blue  then "water"
+  else "unknown"
+  end
+end
+
 describe "About Enums" do
   it "knows enums define named constants" do
     color = Color::Red
@@ -113,15 +122,6 @@ describe "About Enums" do
   end
 
   it "knows enums work in case statements" do
-    def describe_color(c : Color) : String
-      case c
-      when Color::Red   then "stop"
-      when Color::Green then "go"
-      when Color::Blue  then "water"
-      else "unknown"
-      end
-    end
-
     describe_color(Color::Red).should eq(__)
     describe_color(Color::Green).should eq(__)
   end
